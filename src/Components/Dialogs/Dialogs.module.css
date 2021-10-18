@@ -1,0 +1,28 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogsItems {
+    padding: 10px;
+}
+.dialogsItems a {
+    text-decoration: none;
+    color: white;
+}
+
+.dialogsItems a:hover {
+    color: teal;
+}
+
+.active {
+    color: crimson;
+}
+
+.messages {
+
+}
+
+.message {
+    color: whitesmoke;
+}

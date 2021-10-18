@@ -1,0 +1,12 @@
+.dialogsItems a {
+    text-decoration: none;
+    color: white;
+}
+
+.dialogsItems a:hover {
+    color: teal;
+}
+
+.active {
+    color: crimson;
+}
