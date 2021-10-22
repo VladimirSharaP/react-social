@@ -13,8 +13,8 @@ const App = (props) => {
         <Header />
         <Navbar />
         <div className='app-wrapper-content'>
-          <Route exact path='/profile' render= { () => <Profile post={props.state.profile} addPost={props.addPost} updateNewPostText={props.updateNewPostText} /> }/>
-          <Route exact path='/dialogs' render= { () => <Dialogs dialogsData={props.state.dialogs} /> } />
+          <Route exact path='/profile' render= { () => <Profile post={props.state.profile} dispatch={props.dispatch} /> }/>
+          <Route exact path='/dialogs' render= { () => <Dialogs dialogsData={props.state.dialogs} dispatch={props.dispatch} /> }/>
        </div>
       </div>
   );
