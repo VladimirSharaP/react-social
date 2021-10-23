@@ -1,11 +1,6 @@
 import { profileReduser } from './profileReduser';
 import { dialogsReduser } from './dialogsReduser';
 
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const SEND_MESSAGE = 'SEND-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
-
 let store = {
   _state: {
     profile: {
@@ -79,22 +74,6 @@ let store = {
     this._renderEntireTree(this._state);
   }
 }
-
-export const addPostActionCreator = () => ({type: ADD_POST})
-
-export const updateNeewPostTextActionCreator = (newPostText) =>
-  ({
-    type: UPDATE_NEW_POST_TEXT, 
-    text: newPostText
-})
-
-export const sendMessageActionCreator = () => ({type: SEND_MESSAGE})
-
-export const updateNewMessageTextActionCreator = (newMessageText) =>
-  ({
-    type: UPDATE_NEW_MESSAGE_TEXT, 
-    text: newMessageText
-})
 
 
 export default store;
