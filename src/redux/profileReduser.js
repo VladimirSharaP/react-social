@@ -11,7 +11,6 @@ let initialState = {
 };
 
 export const profileReduser = (state = initialState, action) => {
-
     switch(action.type) {
         case ADD_POST:
             let newPost = {
@@ -19,14 +18,17 @@ export const profileReduser = (state = initialState, action) => {
                 message: state.newPostText,
                 likesCount: 0
             };
-      
-            state.postData.push(newPost);
-            state.newPostText = '';
-            return state;
+            return {
+                ...state,
+                postData: [...state.postData, newPost],
+                newPostText: ''
+            };
 
         case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.text;
-            return state;
+            return {
+                ...state,
+                newPostText: action.text
+            };
 
         default:
             return state;

@@ -5,8 +5,8 @@ import dia from './Dialogs.module.css';
 
 const Dialogs = (props) => {
 
-    let dialogs = props.dialogsData.dialogsData.map(d => <DialogsItem id={d.id} name={d.name} />);
-    let messages = props.dialogsData.messagesData.map(m => <Message id={m.id} message={m.message} />);
+    let dialogs = props.dialogsData.dialogsData.map(d => <DialogsItem key={d.id} name={d.name} />);
+    let messages = props.dialogsData.messagesData.map(m => <Message key={m.id} message={m.message} />);
 
     let newMessageElement = React.createRef();
 
