@@ -1,10 +1,13 @@
 import { connect } from 'react-redux';
-import { followActionCreator, unfollowActionCreator, setUsersActionCreator } from '../../redux/findUsersReduser'
-import FindUsers from './FindUsers';
+import { followActionCreator, unfollowActionCreator, setUsersActionCreator, updateCurrentPageActionCreator, setUsersTotalCountActionCreator } from '../../redux/findUsersReduser'
+import FindUsersAPIComponent from './FindUsersAPIComponent';
 
 let mapStateToProps = (state) => {
   return {
-    users:state.findUsersReduser.users
+    users: state.findUsersReduser.users,
+    pageSize: state.findUsersReduser.pageSize,
+    totalUsersCount: state.findUsersReduser.totalUsersCount,
+    currentPage: state.findUsersReduser.currentPage
   }
 };
 
@@ -18,8 +21,14 @@ let mapDispatchToProps = (dispatch) => {
     },
     setUsers: (users) => {
       dispatch(setUsersActionCreator(users));
+    },
+    setUsersTotalCount: (totalUsersCount) => {
+      dispatch(setUsersTotalCountActionCreator(totalUsersCount));
+    },
+    updateCurrentPage: (currentPage) => {
+      dispatch(updateCurrentPageActionCreator(currentPage));
     }
   }
 }
   
-export default connect(mapStateToProps, mapDispatchToProps)(FindUsers);
+export default connect(mapStateToProps, mapDispatchToProps)(FindUsersAPIComponent);
