@@ -3,15 +3,17 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
 const UPDATE_CURRENT_PAGE = 'UPDATE-CURRENT-PAGE';
 const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
+const IS_FETCHING = 'IS-FETCHING';
 
 let initialState = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 };
 
-export const findUsersReduser = (state = initialState, action) => {
+export const findUsersReducer = (state = initialState, action) => {
     switch(action.type) {
         case FOLLOW:
             return {
@@ -40,22 +42,27 @@ export const findUsersReduser = (state = initialState, action) => {
             return {...state, users: [...state.users, ...action.users]};
             
         case SET_USERS_TOTAL_COUNT: 
-            return {...state, totalUsersCount: action.totalUsersCount};
+            return {...state, totalUserCount: action.totalUserCount};
 
         case UPDATE_CURRENT_PAGE: 
             return {...state, currentPage: action.currentPage};
-            
+        
+        case IS_FETCHING: 
+            return {...state, isFetching: !state.isFetching};
+             
         default:
             return state;
     }
 }
 
-export const followActionCreator = (usersId) => ({type: FOLLOW, usersId});
+export const follow = (usersId) => ({type: FOLLOW, usersId});
 
-export const unfollowActionCreator = (usersId) => ({type: UNFOLLOW, usersId});
+export const unfollow = (usersId) => ({type: UNFOLLOW, usersId});
 
-export const setUsersActionCreator = (users) => ({type: SET_USERS, users});
+export const setUsers = (users) => ({type: SET_USERS, users});
 
-export const setUsersTotalCountActionCreator = (totalUsersCount) => ({type: SET_USERS_TOTAL_COUNT, totalUsersCount});
+export const setUsersTotalCount  = (totalUserCount) => ({type: SET_USERS_TOTAL_COUNT, totalUserCount});
 
-export const updateCurrentPageActionCreator = (currentPage) => ({type: UPDATE_CURRENT_PAGE, currentPage});
+export const updateCurrentPage = (currentPage) => ({type: UPDATE_CURRENT_PAGE, currentPage});
+
+export const isFetchingData = () => ({type: IS_FETCHING});

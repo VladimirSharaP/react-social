@@ -1,21 +1,23 @@
 import React from 'react';
 import f from './FindUsers.module.css';
 import userPhoto from '../../assets/images/avatar.png';
+import { NavLink } from 'react-router-dom';
 
 const Users = (props) => {
-  console.log(props)
   return (
     <div>
-      {props.users.map(u => { 
+      {props.users.map(u => 
       <div key={u.id}>
         <span>
           <div>
-              <img src={u.photos.small != null ? u.photos.small : userPhoto } className={f.userPhoto}></img>
+              <NavLink to={'/profile/' + u.id}>
+                <img src={u.photos.small != null ? u.photos.small : userPhoto } className={f.userPhoto}></img>
+              </NavLink>
           </div>
           <div>
             {u.followed 
-              ? <button onClick={() => {this.props.unfollow(u.id)}}>Unfollow</button> 
-              : <button onClick={() => {this.props.follow(u.id)}}>Foloow</button>}
+              ? <button onClick={() => {props.unfollow(u.id)}}>Unfollow</button> 
+              : <button onClick={() => {props.follow(u.id)}}>Follow</button>}
           </div>
         </span>
         <span>
@@ -29,8 +31,8 @@ const Users = (props) => {
             </span>
         </span>
         </div>
-      })}
-      <span onClick={() => {this.moreUsers()}}>Show more</span>
+      )}
+      <span onClick={() => {props.moreUsers()}}>Show more</span>
     </div>
   )
 }

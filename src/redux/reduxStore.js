@@ -1,12 +1,14 @@
 import { createStore, combineReducers } from 'redux';
-import { profileReduser } from './profileReduser';
-import { dialogsReduser } from './dialogsReduser';
-import { findUsersReduser } from './findUsersReduser';
+import { profileReducer } from './profileReducer';
+import { dialogsReducer } from './dialogsReducer';
+import { findUsersReducer } from './findUsersReducer';
+import { authReducer } from './authReducer';
 
 let redusers = combineReducers({
-    profileReduser,
-    dialogsReduser,
-    findUsersReduser
+    profileReducer,
+    dialogsReducer,
+    findUsersReducer,
+    authReducer
 });
 
 let store = createStore(redusers);
