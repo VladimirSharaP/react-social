@@ -4,7 +4,7 @@ import MyPosts from './MyPosts';
 
 let mapStateToProps = (state) => {
   return {
-    postsData:state.profileReduser.postData
+    postsData:state.profileReducer.postData
   }
 };
 
