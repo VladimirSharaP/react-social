@@ -1,43 +1,61 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { follow, unfollow, setUsers, updateCurrentPage, setUsersTotalCount, isFetchingData } from '../../redux/findUsersReducer';
-import Users from './Users';
-import * as axios from 'axios';
-import Preloader from '../Common/Preloader';
+import React from "react";
+import { connect } from "react-redux";
+import {
+  follow,
+  unfollow,
+  setUsers,
+  updateCurrentPage,
+  setUsersTotalCount,
+  isFetchingData,
+  followingProgress,
+} from "../../redux/findUsersReducer";
+import Users from "./Users";
+import Preloader from "../Common/Preloader";
+import { usersAPI } from "../../api/api";
 
 class FindUsersContainer extends React.Component {
-  
   componentDidMount() {
-    if(!this.props.users[0]){
+    if (!this.props.users[0]) {
       this.props.isFetchingData();
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-           .then(response => {
-              this.props.setUsers(response.data.items);
-              this.props.setUsersTotalCount(response.data.totalCount);
-              this.props.isFetchingData();
-            });
+      usersAPI
+        .getUsers(this.props.currentPage, this.props.pageSize)
+        .then((data) => {
+          this.props.setUsers(data.items);
+          this.props.setUsersTotalCount(data.totalCount);
+          this.props.isFetchingData();
+        });
     }
-  };
+  }
 
   moreUsers = () => {
     this.props.isFetchingData();
     this.props.updateCurrentPage(this.props.currentPage + 1);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage + 1}&count=${this.props.pageSize}`)
-    .then(response => {
-      this.props.setUsers(response.data.items);
-      this.props.isFetchingData();
-    });
-  }
+    usersAPI
+      .getUsers(this.props.currentPage + 1, this.props.pageSize)
+      .then((data) => {
+        this.props.setUsers(data.items);
+        this.props.isFetchingData();
+      });
+  };
 
-  render () {
-    return <>
-          {this.props.isFetching ? <Preloader /> : <Users users = {this.props.users} 
-                  moreUsers = {this.moreUsers}
-                  follow = {this.props.follow}
-                  unfollow = {this.props.unfollow} 
-                  isFetching = {this.props.isFetching}
-            />}
-    </>
+  render() {
+    return (
+      <>
+        {this.props.isFetching ? (
+          <Preloader />
+        ) : (
+          <Users
+            users={this.props.users}
+            moreUsers={this.moreUsers}
+            follow={this.props.follow}
+            unfollow={this.props.unfollow}
+            isFetching={this.props.isFetching}
+            followingProgress={this.props.followingProgress}
+            followingInProgress={this.props.followingInProgress}
+          />
+        )}
+      </>
+    );
   }
 }
 
@@ -47,11 +65,17 @@ let mapStateToProps = (state) => {
     pageSize: state.findUsersReducer.pageSize,
     totalUserCount: state.findUsersReducer.totalUserCount,
     currentPage: state.findUsersReducer.currentPage,
-    isFetching: state.findUsersReducer.isFetching
-  }
+    isFetching: state.findUsersReducer.isFetching,
+    followingInProgress: state.findUsersReducer.followingInProgress,
+  };
 };
-  
-export default connect(mapStateToProps, 
-  {
-    follow, unfollow, setUsers, setUsersTotalCount, updateCurrentPage, isFetchingData
-  })(FindUsersContainer);
+
+export default connect(mapStateToProps, {
+  follow,
+  unfollow,
+  setUsers,
+  setUsersTotalCount,
+  updateCurrentPage,
+  isFetchingData,
+  followingProgress,
+})(FindUsersContainer);
